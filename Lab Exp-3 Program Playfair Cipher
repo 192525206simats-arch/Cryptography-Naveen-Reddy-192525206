@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char key[30], text[100], m[5][5];
+    int used[26]={0}, i,j,k=0,r1,c1,r2,c2;
+    char ch;
+
+    printf("Enter key: ");
+    scanf("%s", key);
+
+    printf("Enter plaintext: ");
+    scanf("%s", text);
+
+    for(i=0; key[i]; i++) {
+        ch=key[i];
+        if(ch=='J') ch='I';
+        if(!used[ch-'A']) {
+            used[ch-'A']=1;
+            m[k/5][k%5]=ch;
+            k++;
+        }
+    }
+
+    for(ch='A'; ch<='Z'; ch++) {
+        if(ch=='J') continue;
+        if(!used[ch-'A']) {
+            used[ch-'A']=1;
+            m[k/5][k%5]=ch;
+            k++;
+        }
+    }
+
+    for(i=0; text[i]; i+=2) {
+        for(j=0;j<5;j++)
+            for(k=0;k<5;k++) {
+                if(m[j][k]==text[i])
+                    r1=j,c1=k;
+                if(m[j][k]==text[i+1])
+                    r2=j,c2=k;
+            }
+
+        if(r1==r2) {
+            text[i]=m[r1][(c1+1)%5];
+            text[i+1]=m[r2][(c2+1)%5];
+        }
+        else if(c1==c2) {
+            text[i]=m[(r1+1)%5][c1];
+            text[i+1]=m[(r2+1)%5][c2];
+        }
+        else {
+            text[i]=m[r1][c2];
+            text[i+1]=m[r2][c1];
+        }
+    }
+
+    printf("Ciphertext: %s", text);
+    return 0;
+}
