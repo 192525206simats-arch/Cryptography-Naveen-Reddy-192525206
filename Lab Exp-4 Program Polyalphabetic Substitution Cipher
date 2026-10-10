@@ -1,0 +1,26 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char p[100], k[100];
+    int i, j = 0;
+
+    printf("Enter plaintext: ");
+    scanf("%s", p);
+    printf("Enter key: ");
+    scanf("%s", k);
+
+    for (i = 0; p[i] != '\0'; i++) {
+        if (isalpha(p[i])) {
+            p[i] = toupper(p[i]);
+            k[j % strlen(k)] = toupper(k[j % strlen(k)]);
+            p[i] = ((p[i] - 'A' + k[j % strlen(k)] - 'A') % 26) + 'A';
+            j++;
+        }
+    }
+
+    printf("Ciphertext: %s\n", p);
+    return 0;
+}
