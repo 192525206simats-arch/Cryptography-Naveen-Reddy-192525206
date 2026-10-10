@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+int main() {
+    char c[100];
+    int a, b, i, inv, x;
+
+    printf("Enter ciphertext: ");
+    scanf("%99s", c);
+
+    printf("Most frequent letter: B\n");
+    printf("Second most frequent letter: U\n");
+    printf("Possible plaintext letters: E and T\n");
+
+    for (a = 1; a < 26; a++) {
+        if (gcd(a, 26) != 1) continue;
+
+        for (inv = 1; inv < 26; inv++)
+            if ((a * inv) % 26 == 1) break;
+
+        for (b = 0; b < 26; b++) {
+            printf("a=%d b=%d: ", a, b);
+            for (i = 0; c[i]; i++) {
+                x = (c[i] - 'A' - b + 26) % 26;
+                putchar('A' + (inv * x) % 26);
+            }
+            printf("\n");
+        }
+    }
+    return 0;
+}
