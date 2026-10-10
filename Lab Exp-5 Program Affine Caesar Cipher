@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char p[100];
+    int a, b, i, x;
+
+    printf("Enter plaintext: ");
+    scanf("%s", p);
+    printf("Enter a and b: ");
+    scanf("%d%d", &a, &b);
+
+    for(i = 0; p[i] != '\0'; i++) {
+        x = toupper(p[i]) - 'A';
+        p[i] = ((a * x + b) % 26) + 'A';
+    }
+
+    printf("Ciphertext: %s", p);
+    return 0;
+}
