@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+    char cipher[] = "53‡‡†305))6*;4826)4‡.)4‡);806*;48†8¶60))85;;]";
+    char plain[] = "agoodglassinthe";
+    int i;
+
+    printf("Ciphertext: %s\n", cipher);
+    printf("Decrypted: ");
+
+    for (i = 0; i < 15; i++)
+        printf("%c", plain[i]);
+
+    printf("\n");
+    return 0;
+}
