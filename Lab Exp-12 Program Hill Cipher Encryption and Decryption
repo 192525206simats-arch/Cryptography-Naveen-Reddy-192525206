@@ -1,0 +1,41 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char p[] = "meet me at the usual place at ten rather than eight oclock";
+    char text[100], cipher[100], decrypt[100];
+    int K[2][2] = {{9,4},{5,7}};
+    int I[2][2] = {{5,12},{15,25}};
+    int i, n = 0, a, b;
+
+    for (i = 0; p[i]; i++)
+        if (isalpha(p[i]))
+            text[n++] = toupper(p[i]);
+
+    if (n % 2) text[n++] = 'X';
+    text[n] = '\0';
+
+    for (i = 0; i < n; i += 2) {
+        a = text[i] - 'A';
+        b = text[i+1] - 'A';
+        cipher[i] = (K[0][0]*a + K[0][1]*b) % 26 + 'A';
+        cipher[i+1] = (K[1][0]*a + K[1][1]*b) % 26 + 'A';
+    }
+    cipher[n] = '\0';
+
+    for (i = 0; i < n; i += 2) {
+        a = cipher[i] - 'A';
+        b = cipher[i+1] - 'A';
+        decrypt[i] = (I[0][0]*a + I[0][1]*b) % 26 + 'A';
+        decrypt[i+1] = (I[1][0]*a + I[1][1]*b) % 26 + 'A';
+    }
+    decrypt[n] = '\0';
+
+    printf("Plaintext: %s\n", text);
+    printf("Encrypted text: %s\n", cipher);
+    printf("Decrypted text: %s\n", decrypt);
+
+    return 0;
+}
