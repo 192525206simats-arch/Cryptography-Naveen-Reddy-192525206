@@ -1,0 +1,38 @@
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[] = "KXJEYUREBEZWEHEWRYTUHEYFSKREHEGOYFIWTTTUOLKSYCAJPOBOTEIZONTXBYBNTGONEYCUZWRGDSONSXBOUYWRHEBAAHYUSEDQ";
+    char key[5][5] = {
+        {'K','E','Y','A','B'},
+        {'C','D','F','G','H'},
+        {'I','L','M','N','O'},
+        {'P','Q','R','S','T'},
+        {'U','V','W','X','Z'}
+    };
+    int i, a, b, r1, c1, r2, c2;
+
+    for (i = 0; s[i] && s[i+1]; i += 2) {
+        r1 = c1 = r2 = c2 = -1;
+        for (a = 0; a < 5; a++)
+            for (b = 0; b < 5; b++) {
+                if (key[a][b] == s[i]) r1=a, c1=b;
+                if (key[a][b] == s[i+1]) r2=a, c2=b;
+            }
+
+        if (r1 == r2) {
+            s[i] = key[r1][(c1+4)%5];
+            s[i+1] = key[r2][(c2+4)%5];
+        } else if (c1 == c2) {
+            s[i] = key[(r1+4)%5][c1];
+            s[i+1] = key[(r2+4)%5][c2];
+        } else {
+            s[i] = key[r1][c2];
+            s[i+1] = key[r2][c1];
+        }
+    }
+
+    printf("Decrypted message: %s\n", s);
+    return 0;
+}
